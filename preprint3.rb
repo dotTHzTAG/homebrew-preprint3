@@ -10,11 +10,12 @@ class Preprint3 < Formula
   depends_on "python" # Changed to generic python for latest stable version
 
   def install
-    # Use Homebrew's buildpath, which points to the extracted source directory
-    system Formula["python"].opt_bin/"python3", "-m", "pip", "install", buildpath, *std_pip_args
+    # Create a virtual environment and install the package into it
+    venv = virtualenv_create(buildpath/"venv", Formula["python"].opt_bin/"python3")
+    venv.install_args_and_deps buildpath
 
-    # Corrected executable name
-    bin.install "preprint"
+    # Install the 'preprint' executable from the virtual environment's bin directory
+    bin.install "venv/bin/preprint"
   end
 
   test do
