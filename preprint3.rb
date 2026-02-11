@@ -7,7 +7,7 @@ class Preprint3 < Formula
   sha256 "58d57a2d65dbb1c8655bd96f952f3f1c2b663711189f2f58580694565fdd2942"
   license "MIT" # Please verify the actual license of your project
 
-  depends_on "python@3.9" # Specify Python 3.9 as a dependency, or a more recent version if preferred
+  depends_on "python" # Specify Python 3.9 as a dependency, or a more recent version if preferred
 
   def install
     # Assuming the project uses setuptools for installation
