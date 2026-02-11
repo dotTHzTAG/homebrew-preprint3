@@ -22,9 +22,11 @@ class Preprint3 < Formula
     system venv_python, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"
 
     # Install the package itself into the virtual environment
-    system venv_python, "-m", "pip", "install", buildpath, *std_pip_args
+    # Crucial fix: removed *std_pip_args here as it was causing pip to install incorrectly
+    system venv_python, "-m", "pip", "install", buildpath
 
     # Symlink the 'preprint' executable from the virtual environment's bin directory
+    # This should now exist if the pip install was successful
     bin.install_symlink venv_root/"bin/preprint"
   end
 
