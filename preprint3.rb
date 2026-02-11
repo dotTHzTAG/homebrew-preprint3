@@ -14,10 +14,12 @@ class Preprint3 < Formula
     venv_root = libexec/"venv"
     system Formula["python"].opt_bin/"python3", "-m", "venv", venv_root
 
-    # Activate the virtual environment
     # Use the python and pip from within the venv
     venv_python = venv_root/"bin/python3"
     venv_pip = venv_root/"bin/pip"
+
+    # Upgrade pip and install setuptools in the virtual environment
+    system venv_python, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"
 
     # Install the package itself into the virtual environment
     system venv_python, "-m", "pip", "install", buildpath, *std_pip_args
