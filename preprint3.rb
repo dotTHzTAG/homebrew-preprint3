@@ -10,12 +10,20 @@ class Preprint3 < Formula
   depends_on "python" # Changed to generic python for latest stable version
 
   def install
-    # Create a virtual environment and install the package into it
-    venv = virtualenv_create(buildpath/"venv", Formula["python"].opt_bin/"python3")
-    venv.install_args_and_deps buildpath
+    # Create a virtual environment using Homebrew's python
+    venv_root = libexec/"venv"
+    system Formula["python"].opt_bin/"python3", "-m", "venv", venv_root
+
+    # Activate the virtual environment
+    # Use the python and pip from within the venv
+    venv_python = venv_root/"bin/python3"
+    venv_pip = venv_root/"bin/pip"
+
+    # Install the package itself into the virtual environment
+    system venv_python, "-m", "pip", "install", buildpath, *std_pip_args
 
     # Install the 'preprint' executable from the virtual environment's bin directory
-    bin.install "venv/bin/preprint"
+    bin.install venv_root/"bin/preprint"
   end
 
   test do
