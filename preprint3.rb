@@ -24,8 +24,8 @@ class Preprint3 < Formula
     # Install the package itself into the virtual environment
     system venv_python, "-m", "pip", "install", buildpath, *std_pip_args
 
-    # Install the 'preprint' executable from the virtual environment's bin directory
-    bin.install venv_root/"bin/preprint"
+    # Symlink the 'preprint' executable from the virtual environment's bin directory
+    bin.install_symlink venv_root/"bin/preprint"
   end
 
   test do
